@@ -30,7 +30,7 @@ async def on_ready():
     await command.sync()
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
-    channel = bot.get_channel(1045319345900888135)
+    channel = bot.get_channel(channelID here)
     await channel.send(f'> `{current_time}` - ***Bot is ready!***')
         # Setting `Watching ` status
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="ppl die inside"))
@@ -44,8 +44,8 @@ async def node_connect():
 #wavelink is ready for combat
 @bot.event
 async def on_wavelink_node_ready(node: wavelink.Node):
-    channel = bot.get_channel(1045319345900888135)
-    await channel.send(f'<:arrow:1046748055334031534> `Lavalink` - Node, ID= **{node.identifier}** is ready!')
+    channel = bot.get_channel(channelID here)
+    await channel.send(f'emoji if you want `Lavalink` - Node, ID= **{node.identifier}** is ready!')
     print(f"Node {node.identifier} is ready!") 
 
 
@@ -54,11 +54,11 @@ async def on_wavelink_node_ready(node: wavelink.Node):
 @command.command(description="Restart bot!")
 @app_commands.default_permissions(administrator=True)
 async def restart(interaction: discord.Interaction):
-    if interaction.user.id == 419195631198928906:
+    if interaction.user.id == userID here:
         await interaction.response.send_message("Restarting...")
         now = datetime.now()
         current_time = now.strftime("%d %B - %H:%M:%S")
-        channel = bot.get_channel(1045319345900888135)
+        channel = bot.get_channel(channelID here)
         await channel.send(f"> `{current_time}` - Bot is restarting...")
         print("Bot is restarting...")
         os.execl(sys.executable, sys.executable, *sys.argv)
@@ -66,7 +66,7 @@ async def restart(interaction: discord.Interaction):
         await interaction.response.send_message("You don't have permission to use this command!")
         now = datetime.now()
         current_time = now.strftime("%d %B - %H:%M:%S")
-        channel = bot.get_channel(1045319345900888135)
+        channel = bot.get_channel(channelID here)
         await channel.send(f"> `{current_time}` - {interaction.user.mention} tried to restart the bot!")
         print("Unauthorized access attempt by " + str(interaction.user))
 
@@ -74,11 +74,11 @@ async def restart(interaction: discord.Interaction):
 @command.command(description="Shuts down the bot!")
 @app_commands.default_permissions(administrator=True)
 async def shutdown(interaction: discord.Interaction):
-    if interaction.user.id == 419195631198928906:
+    if interaction.user.id == userID here:
         await interaction.response.send_message("shutting down...")
         now = datetime.now()
         current_time = now.strftime("%d %B - %H:%M:%S")
-        channel = bot.get_channel(1045319345900888135)
+        channel = bot.get_channel(channelID here)
         await channel.send(f"❗ `{current_time}` - Bot is shutting down...")
         print("Bot is shutting down...")
         sys.exit()
@@ -86,7 +86,7 @@ async def shutdown(interaction: discord.Interaction):
         await interaction.response.send_message("You are not allowed to shut down the bot!")
         now = datetime.now()
         current_time = now.strftime("%d %B - %H:%M:%S")
-        channel = bot.get_channel(1045319345900888135)
+        channel = bot.get_channel(channelID here)
         await channel.send(f"❗ `{current_time}` - {interaction.user.mention} tried to shut down the bot!")
         print("Unauthorized access attempt by " + str(interaction.user))
 
@@ -182,7 +182,7 @@ async def on_message(message):
 async def on_message_edit(before, after):
     if before.content != after.content:
         channel = before.channel
-        channels = bot.get_channel(1045487867188744286)
+        channels = bot.get_channel(channelID here)
         embed = discord.Embed(title="Message edited", description=f"**{before.author}** edited a message in {channel.mention}", color=0xF1C8F6)
         embed.add_field(name="Before", value=before.content, inline=False)
         embed.add_field(name="After", value=after.content, inline=False)
@@ -195,14 +195,14 @@ async def on_message_delete(message):
     if message.author == bot.user:
         return
     else:
-        channelSend = bot.get_channel(1045487867188744286)
+        channelSend = bot.get_channel(channelID here)
         embed = discord.Embed(title="Message deleted", description=f"**{message.author}** deleted a message in {message.channel.mention}", color=0xF1C8F6)
         await channelSend.send(embed=embed)
 
 #new member event
 @bot.event
 async def on_member_join(member: discord.Member):
-    channel = bot.get_channel(1046109451779850251)
+    channel = bot.get_channel(channelID here)
     await channel.send(f"> Welcome to the ***Coding shelter*** {member.mention}!!! Please read the <#1044575795957473280> and enjoy your stay!")
 
 #member leave event
@@ -211,7 +211,7 @@ async def on_member_remove(member: discord.Member):
     mentions = discord.AllowedMentions(
         users=False,
     )
-    channel = bot.get_channel(1046109451779850251)
+    channel = bot.get_channel(channelID here)
     await channel.send(f"> {member.mention} has left the server, so long friend :(", allowed_mentions=mentions)
 
 
@@ -224,7 +224,7 @@ async def on_member_remove(member: discord.Member):
 # random facts command
 @command.command(description="Random weird facts!")
 async def weirdfact(interaction: discord.Interaction):
-    lines = open('E:\\Python\\bot\\facts.txt').read().splitlines()
+    lines = open('path to facts.txt').read().splitlines()
     file = random.choice(lines)
     await interaction.response.send_message(file)
 
@@ -255,7 +255,7 @@ async def purge(interaction: discord.Interaction, amount: int, reason: str):
 @app_commands.default_permissions(kick_members=True)
 @app_commands.describe(member='Input member', reason='Input reason')
 async def kick(interaction: discord.Interaction, member: discord.Member, reason: str):
-    channel = bot.get_channel(1045798126352597043)
+    channel = bot.get_channel(channelID here)
     await interaction.response.defer(ephemeral=False)
     await member.kick(reason=reason)
     await interaction.followup.send(f"> {interaction.user.mention} Kicked **{member}** For reason: `{reason}`")
@@ -269,7 +269,7 @@ async def kick(interaction: discord.Interaction, member: discord.Member, reason:
 @app_commands.default_permissions(ban_members=False)
 @app_commands.describe(member='Input member', reason='Input reason')
 async def ban(interaction: discord.Interaction, member: discord.Member, reason: str):
-    channel = bot.get_channel(1045798126352597043)
+    channel = bot.get_channel(channelID here)
     await interaction.response.defer(ephemeral=False)
     await member.ban(reason=reason)
     await interaction.followup.send(f"> {interaction.user.mention} Banned **{member}** For reason: `{reason}`\n **UserID:** *{member.id}*")
@@ -282,7 +282,7 @@ async def ban(interaction: discord.Interaction, member: discord.Member, reason: 
 @command.command(description="Unban a member from the server!")
 @app_commands.default_permissions(ban_members=True)
 @app_commands.describe(member='Input member', reason='Input reason')
-@discord.app_commands.checks.has_role(1044687367061131406)
+@discord.app_commands.checks.has_role(roleID here)
 async def unban(interaction: discord.Interaction, member: discord.User, reason: str):
         channel = bot.get_channel(1045798126352597043)
         await interaction.response.defer(ephemeral=False)
@@ -300,7 +300,7 @@ async def unban_error(interaction: discord.Interaction, error):
 #duck facts command
 @command.command(description="Random duck facts!")
 async def duckfact(interaction: discord.Interaction):
-    lines = open('E:\\Python\\bot\\ducks.txt').read().splitlines()
+    lines = open('path to ducks.txt').read().splitlines()
     file = random.choice(lines)
     await interaction.response.send_message(file)
 
@@ -477,7 +477,7 @@ async def leave(interaction: discord.Interaction): #stops working after restart,
 #track end event
 @bot.event
 async def on_wavelink_track_end(player: wavelink.Player, track: wavelink.Track, reason):
-    channel = bot.get_channel(1049729674005184532)
+    channel = bot.get_channel(channelID here)
     ctx = player.ctx
     vc: player = ctx.voice_client
     if not player.queue.is_empty:
@@ -588,7 +588,7 @@ async def unmute(interaction: discord.Interaction, member: discord.Member):
 async def stats(interaction: discord.Interaction):
     await interaction.response.defer(ephemeral=True)
     embed = discord.Embed(title="Bot stats", description="", color=0x00ff00)
-    embed.add_field(name="Bot owner", value="Vabolos#1999", inline=True)
+    embed.add_field(name="Bot owner", value="your name here", inline=True)
     embed.add_field(name="Bot uptime", value=f"{round(bot.latency * 1000)}ms", inline=True)
     embed.add_field(name="Bot latency", value=f"{round(bot.latency * 1000)}ms", inline=True)
     embed.set_footer(text="Stats requested by: " + str(interaction.user))
